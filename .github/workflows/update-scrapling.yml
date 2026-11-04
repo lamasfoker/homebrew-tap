@@ -1,0 +1,62 @@
+name: Update scrapling
+
+on:
+  schedule:
+    - cron: "0 4 * * *" # daily, 04:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv (used only to regenerate the lock)
+        run: brew install uv
+
+      - name: Bump formula (scrapling version, hashed lock, vendored uv and Python)
+        id: bump
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: script/bump-scrapling.sh
+
+      - name: Show diff
+        run: git diff --stat
+
+      - name: Build and test the bumped formula
+        if: steps.bump.outputs.changed == '1'
+        run: |
+          TAP_DIR="$(brew --repository)/Library/Taps/lamasfoker"
+          mkdir -p "$TAP_DIR"
+          ln -sfn "$GITHUB_WORKSPACE" "$TAP_DIR/homebrew-tap"
+          brew install --formula --build-from-source lamasfoker/tap/scrapling
+          brew test lamasfoker/tap/scrapling
+
+      - name: Check that the lock has Intel (x86_64) wheels for every package
+        if: steps.bump.outputs.changed == '1'
+        run: |
+          uv pip install --dry-run --target "$(mktemp -d)" --require-hashes --only-binary :all: --no-deps \
+            --python-platform x86_64-apple-darwin --python-version 3.13 -r Formula/scrapling-requirements.lock
+
+      - name: Open PR
+        id: pr
+        if: steps.bump.outputs.changed == '1'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "scrapling: automated version bump"
+          branch: automated/bump-scrapling
+          delete-branch: true
+          title: "scrapling: automated version bump"
+          body: |
+            Automated bump by `.github/workflows/update-scrapling.yml`.
+            `brew install --build-from-source` + `brew test` passed on macos-14 before this PR was opened.
+
+      - name: Enable auto-merge
+        if: steps.bump.outputs.changed == '1' && steps.pr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge --squash --auto "${{ steps.pr.outputs.pull-request-number }}"
