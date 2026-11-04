@@ -28,7 +28,7 @@ uv_sha_x64=$(curl -fsSL "https://github.com/astral-sh/uv/releases/download/${uv_
 
 pbs_tag=$(gh_api astral-sh/python-build-standalone/releases/latest | jq -r '.tag_name')
 pbs_sums=$(curl -fsSL "https://github.com/astral-sh/python-build-standalone/releases/download/${pbs_tag}/SHA256SUMS")
-pbs_file() { grep -oE "cpython-3\.13\.[0-9]+\+${pbs_tag}-$1-apple-darwin-install_only_stripped\.tar\.gz" <<<"$pbs_sums" | head -1; }
+pbs_file() { grep -m1 -oE "cpython-3\.13\.[0-9]+\+${pbs_tag}-$1-apple-darwin-install_only_stripped\.tar\.gz" <<<"$pbs_sums"; }
 pbs_arm=$(pbs_file aarch64)
 pbs_x64=$(pbs_file x86_64)
 pbs_sha_arm=$(grep -F "  ${pbs_arm}" <<<"$pbs_sums" | awk '{print $1}')
@@ -73,7 +73,7 @@ open(path, "w").write(text)
 PY
 
 echo "scrapling[shell]==${version}" > "${TMPDIR:-/tmp}/scrapling.in"
-uv pip compile "${TMPDIR:-/tmp}/scrapling.in" --universal --generate-hashes --only-binary :all: \
+uv pip compile "${TMPDIR:-/tmp}/scrapling.in" --universal --generate-hashes --only-binary :all: --upgrade \
   --python-version 3.13 --no-header --no-annotate -o "$lock" >/dev/null
 
 if git diff --quiet -- "$formula" "$lock"; then

@@ -36,6 +36,12 @@ jobs:
           brew install --formula --build-from-source lamasfoker/tap/scrapling
           brew test lamasfoker/tap/scrapling
 
+      - name: Check that the lock has Intel (x86_64) wheels for every package
+        if: steps.bump.outputs.changed == '1'
+        run: |
+          uv pip install --dry-run --target "$(mktemp -d)" --require-hashes --only-binary :all: --no-deps \
+            --python-platform x86_64-apple-darwin --python-version 3.13 -r Formula/scrapling-requirements.lock
+
       - name: Open PR
         id: pr
         if: steps.bump.outputs.changed == '1'

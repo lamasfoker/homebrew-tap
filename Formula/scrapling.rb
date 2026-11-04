@@ -59,13 +59,14 @@ class Scrapling < Formula
     ENV["UV_NO_CONFIG"] = "1"
     ENV["UV_PYTHON_DOWNLOADS"] = "never"
 
+    (var/"scrapling/browsers").mkpath
+
     uv = (libexec/"uv").glob("**/uv").first
     venv = libexec/"venv"
-    rm_r venv if venv.exist?
-    system uv, "venv", "--python", libexec/"python/bin/python3", venv
-    system uv, "pip", "install", "--python", venv/"bin/python",
-           "--require-hashes", "--only-binary", ":all:", "--no-deps",
-           "-r", pkgshare/"scrapling-requirements.lock"
+    system uv, "venv", "--allow-existing", "--python", libexec/"python/bin/python3", venv
+    system uv, "pip", "sync", "--no-cache", "--python", venv/"bin/python",
+           "--require-hashes", "--only-binary", ":all:",
+           pkgshare/"scrapling-requirements.lock"
   end
 
   def caveats
@@ -77,6 +78,7 @@ class Scrapling < Formula
   end
 
   test do
+    assert_match version.to_s, shell_output("#{bin}/scrapling --version")
     assert_match "extract", shell_output("#{bin}/scrapling --help")
 
     (testpath/"page.html").write "<html><body><h1>Hello Scrapling</h1></body></html>"

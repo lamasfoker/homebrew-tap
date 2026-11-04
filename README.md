@@ -8,8 +8,9 @@ lamasfoker's Homebrew tap. The formulas are unofficial.
 | `trail-code` | [Trail-Code](https://github.com/trailhq/Trail-Code), the context layer for coding agents (the `trail` command) |
 | `scrapling` | [Scrapling](https://github.com/D4Vinci/Scrapling), the web scraping framework and its `scrapling` CLI |
 
-Each Node.js formula is installed with a **private, vendored Node.js runtime** (`scrapling` uses a private Python the same way). It never touches any Node.js you
-have on `PATH` (system, nvm, volta, etc). `brew uninstall` removes it all cleanly.
+Each formula is installed with a **private, vendored runtime**: Node.js for `intelephense` and `trail-code`,
+Python for `scrapling`. It never touches any Node.js or Python you have on `PATH` (system, nvm, volta, pyenv,
+etc). `brew uninstall` removes it all cleanly, except the `scrapling` browsers (see below).
 
 ## Install
 
