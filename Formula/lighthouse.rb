@@ -19,12 +19,12 @@ class Lighthouse < Formula
   resource "node" do
     on_macos do
       on_arm do
-        url "https://nodejs.org/dist/v24.22.1/node-v24.22.1-darwin-arm64.tar.gz"
-        sha256 "89c682593d76cd44233fa53b1563264e7de9cbb189cad169135c5b4fadfbc0a7"
+        url "https://nodejs.org/dist/v26.13.0/node-v26.13.0-darwin-arm64.tar.gz"
+        sha256 "d38bd5e5a2ddce6bbb5ce45e46e208337da4d51fffe611e567fd32073d6439f6"
       end
       on_intel do
-        url "https://nodejs.org/dist/v24.22.1/node-v24.22.1-darwin-x64.tar.gz"
-        sha256 "d132557e7ee2b85af08b0c8c34338e65c6430f2238d01f727728ef42dc83b035"
+        url "https://nodejs.org/dist/v26.13.0/node-v26.13.0-darwin-x64.tar.gz"
+        sha256 "525c9b29bb0263d687de60a4cec0e2a6db876a8eb032369e5795eca71e7c358e"
       end
     end
   end
