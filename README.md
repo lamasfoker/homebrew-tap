@@ -6,6 +6,7 @@ lamasfoker's Homebrew tap. The formulas are unofficial.
 | --- | --- |
 | `intelephense` | [Intelephense](https://intelephense.com), the PHP language server |
 | `trail-code` | [Trail-Code](https://github.com/trailhq/Trail-Code), the context layer for coding agents (the `trail` command) |
+| `lighthouse` | [Lighthouse](https://github.com/GoogleChrome/lighthouse), the Google web page auditor |
 
 Each formula is installed with a **private, vendored Node.js runtime**. It never touches any Node.js you
 have on `PATH` (system, nvm, volta, etc). `brew uninstall` removes it all cleanly.
@@ -16,7 +17,11 @@ have on `PATH` (system, nvm, volta, etc). `brew uninstall` removes it all cleanl
 brew tap lamasfoker/tap
 brew install intelephense
 brew install trail-code
+brew install lamasfoker/tap/lighthouse
 ```
+
+`lighthouse` needs the full name. homebrew-core has another formula called `lighthouse` (the Ethereum
+client), so `brew install lighthouse` installs that one.
 
 ### Coming from `lamasfoker/intelephense`
 
@@ -57,12 +62,22 @@ trail init   # in a repo, to wire trail into your agents
 - The `trail` command runs on the vendored Node.js. The agent hooks that `trail init` writes are
   run by the agent with the `node` on your `PATH`, so you need a Node.js >= 20 for them.
 
+## lighthouse
+
+```sh
+lighthouse https://example.com --view
+```
+
+- Lighthouse needs Google Chrome (or Chromium) installed. The formula does not install it.
+- Only the `lighthouse` command is installed. The `smokehouse` and `chrome-debug` dev tools are not.
+
 ## Updates
 
-Two workflows check npm, rebuild and test the formula, and open a self-merging PR when the build
+Three workflows check npm, rebuild and test the formula, and open a self-merging PR when the build
 passes. Each also keeps its own vendored Node.js runtime pinned to the current LTS release.
 
 | Workflow | Formula | Schedule | Run manually |
 | --- | --- | --- | --- |
 | `.github/workflows/update-intelephense.yml` | `intelephense` | weekly | `gh workflow run update-intelephense.yml` |
 | `.github/workflows/update-trail-code.yml` | `trail-code` | daily | `gh workflow run update-trail-code.yml` |
+| `.github/workflows/update-lighthouse.yml` | `lighthouse` | weekly | `gh workflow run update-lighthouse.yml` |
