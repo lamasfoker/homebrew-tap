@@ -10,6 +10,9 @@ class Lighthouse < Formula
     strategy :npm
   end
 
+  # homebrew-core's `lighthouse` (the Ethereum client) also installs `bin/lighthouse`.
+  conflicts_with "lighthouse", because: "both install a `lighthouse` binary"
+
   # Vendored Node.js runtime. This formula intentionally does NOT `depends_on "node"` —
   # lighthouse is installed and run only against this private copy, never against any
   # Node.js the user has on PATH (system, nvm, volta, etc).
