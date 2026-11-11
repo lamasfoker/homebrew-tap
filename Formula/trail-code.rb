@@ -1,8 +1,8 @@
 class TrailCode < Formula
   desc "Context layer for coding agents — installed with a private, vendored Node.js runtime"
   homepage "https://github.com/trailhq/Trail-Code"
-  url "https://registry.npmjs.org/@trailhq/trail-code/-/trail-code-0.27.0.tgz"
-  sha256 "2e61797211e7013055d9ada468f3ff53b828fd75c5c8e83d189405b96f577cad"
+  url "https://registry.npmjs.org/@trailhq/trail-code/-/trail-code-0.28.1.tgz"
+  sha256 "7d3082b3cc28e32d9f0942a0bedfd88366993a40aaa6c55d3390de2cdf39cadb"
   license "MIT"
 
   livecheck do
@@ -16,12 +16,12 @@ class TrailCode < Formula
   resource "node" do
     on_macos do
       on_arm do
-        url "https://nodejs.org/dist/v24.22.1/node-v24.22.1-darwin-arm64.tar.gz"
-        sha256 "89c682593d76cd44233fa53b1563264e7de9cbb189cad169135c5b4fadfbc0a7"
+        url "https://nodejs.org/dist/v26.13.0/node-v26.13.0-darwin-arm64.tar.gz"
+        sha256 "d38bd5e5a2ddce6bbb5ce45e46e208337da4d51fffe611e567fd32073d6439f6"
       end
       on_intel do
-        url "https://nodejs.org/dist/v24.22.1/node-v24.22.1-darwin-x64.tar.gz"
-        sha256 "d132557e7ee2b85af08b0c8c34338e65c6430f2238d01f727728ef42dc83b035"
+        url "https://nodejs.org/dist/v26.13.0/node-v26.13.0-darwin-x64.tar.gz"
+        sha256 "525c9b29bb0263d687de60a4cec0e2a6db876a8eb032369e5795eca71e7c358e"
       end
     end
   end

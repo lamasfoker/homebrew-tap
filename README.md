@@ -7,9 +7,11 @@ lamasfoker's Homebrew tap. The formulas are unofficial.
 | `intelephense` | [Intelephense](https://intelephense.com), the PHP language server |
 | `trail-code` | [Trail-Code](https://github.com/trailhq/Trail-Code), the context layer for coding agents (the `trail` command) |
 | `lighthouse` | [Lighthouse](https://github.com/GoogleChrome/lighthouse), the Google web page auditor |
+| `scrapling` | [Scrapling](https://github.com/D4Vinci/Scrapling), the web scraping framework and its `scrapling` CLI |
 
-Each formula is installed with a **private, vendored Node.js runtime**. It never touches any Node.js you
-have on `PATH` (system, nvm, volta, etc). `brew uninstall` removes it all cleanly.
+Each formula is installed with a **private, vendored runtime**: Node.js for `intelephense` and `trail-code`,
+Python for `scrapling`. It never touches any Node.js or Python you have on `PATH` (system, nvm, volta, pyenv,
+etc). `brew uninstall` removes it all cleanly, except the `scrapling` browsers (see below).
 
 ## Install
 
@@ -18,6 +20,7 @@ brew tap lamasfoker/tap
 brew install intelephense
 brew install trail-code
 brew install lamasfoker/tap/lighthouse
+brew install scrapling
 ```
 
 `lighthouse` needs the full name. homebrew-core has another formula called `lighthouse` (the Ethereum
@@ -71,13 +74,27 @@ lighthouse https://example.com --view
 - Lighthouse needs Google Chrome (or Chromium) installed. The formula does not install it.
 - Only the `lighthouse` command is installed. The `smokehouse` and `chrome-debug` dev tools are not.
 
+## scrapling
+
+```sh
+scrapling install   # once: downloads the browsers for the browser fetchers
+scrapling extract get 'https://example.com' page.md --ai-targeted
+```
+
+- The install builds a private Python venv from a hashed lock (`Formula/scrapling-requirements.lock`).
+  It never touches the Python on your `PATH`. The venv is built in `post_install`, so run
+  `brew postinstall scrapling` if that step failed.
+- The browsers are stored in `$(brew --prefix)/var/scrapling/browsers` (about 570 MB). `brew uninstall`
+  does not remove them; delete that folder by hand.
+
 ## Updates
 
-Three workflows check npm, rebuild and test the formula, and open a self-merging PR when the build
-passes. Each also keeps its own vendored Node.js runtime pinned to the current LTS release.
+Four workflows check npm or PyPI, rebuild and test the formula, and open a self-merging PR when the build
+passes. Each also keeps its own vendored runtime pinned (Node.js LTS, or Python 3.13 and uv for `scrapling`).
 
 | Workflow | Formula | Schedule | Run manually |
 | --- | --- | --- | --- |
 | `.github/workflows/update-intelephense.yml` | `intelephense` | weekly | `gh workflow run update-intelephense.yml` |
 | `.github/workflows/update-trail-code.yml` | `trail-code` | daily | `gh workflow run update-trail-code.yml` |
 | `.github/workflows/update-lighthouse.yml` | `lighthouse` | weekly | `gh workflow run update-lighthouse.yml` |
+| `.github/workflows/update-scrapling.yml` | `scrapling` | daily | `gh workflow run update-scrapling.yml` |
