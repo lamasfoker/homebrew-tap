@@ -29,12 +29,12 @@ class Scrapling < Formula
   resource "uv" do
     on_macos do
       on_arm do
-        url "https://github.com/astral-sh/uv/releases/download/0.13.8/uv-aarch64-apple-darwin.tar.gz"
-        sha256 "6b71028a6b904f2ae3340ef52e595512de807d06c0a20eaef2f692581b246558"
+        url "https://github.com/astral-sh/uv/releases/download/0.13.9/uv-aarch64-apple-darwin.tar.gz"
+        sha256 "5aeca67f2283f75235de40d0bd9c0a5bbc5fce23b6d48b3bf9fa1b2db08382ca"
       end
       on_intel do
-        url "https://github.com/astral-sh/uv/releases/download/0.13.8/uv-x86_64-apple-darwin.tar.gz"
-        sha256 "a04c2ffeac28b2003a2c13caf538ab425fcd7def3e4a41571f4a8fb370a66af3"
+        url "https://github.com/astral-sh/uv/releases/download/0.13.9/uv-x86_64-apple-darwin.tar.gz"
+        sha256 "617a3211261b0fc739562f0071aa34e9739797c510208ede8e2977c30903d041"
       end
     end
   end
