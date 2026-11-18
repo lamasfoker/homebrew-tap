@@ -33,8 +33,7 @@ class TrailCode < Formula
     node = node_dir/"bin/node"
     npm_cli = node_dir/"lib/node_modules/npm/bin/npm-cli.js"
 
-    # The native tree-sitter modules (tree-sitter-kotlin has no prebuilt binary) compile in their
-    # install scripts with a bare `node`, so the vendored runtime must be first on PATH.
+    # Install scripts of dependencies run a bare `node`, so the vendored runtime must be first on PATH.
     ENV.prepend_path "PATH", node_dir/"bin"
     # `brew install` must not send the install event that `npm i -g` sends.
     ENV["DO_NOT_TRACK"] = "1"
@@ -53,15 +52,8 @@ class TrailCode < Formula
 
   test do
     ENV["DO_NOT_TRACK"] = "1"
-    node = libexec/"node/bin/node"
-    package = libexec/"lib/node_modules/@trailhq/trail-code"
 
     assert_equal version.to_s, shell_output("#{bin}/trail --version").strip
-
-    # A missing native grammar makes trail fall back to WASM without failing, so check them directly.
-    cd package do
-      system node, "-e", "require('tree-sitter'); require('tree-sitter-kotlin'); require('tree-sitter-php')"
-    end
 
     (testpath/"src").mkpath
     (testpath/"src/Greeter.php").write "<?php\nclass Greeter { public function hi() { return 'hi'; } }\n"
