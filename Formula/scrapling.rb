@@ -16,12 +16,12 @@ class Scrapling < Formula
   resource "python" do
     on_macos do
       on_arm do
-        url "https://github.com/astral-sh/python-build-standalone/releases/download/20261110/cpython-3.13.18%2B20261110-aarch64-apple-darwin-install_only_stripped.tar.gz"
-        sha256 "7a2384641584ab9984221fcb0fc9265df465922af71be71410529e2a9c3f0540"
+        url "https://github.com/astral-sh/python-build-standalone/releases/download/20261123/cpython-3.13.18%2B20261123-aarch64-apple-darwin-install_only_stripped.tar.gz"
+        sha256 "1ee404a045f3de0e4ed59476fc9ec8c24ddece1e2a4c549a192a04b04b03b8c1"
       end
       on_intel do
-        url "https://github.com/astral-sh/python-build-standalone/releases/download/20261110/cpython-3.13.18%2B20261110-x86_64-apple-darwin-install_only_stripped.tar.gz"
-        sha256 "d27d59a722db9f69926eb6d9564071247221f45a04da920ea7f3001c97e32f9b"
+        url "https://github.com/astral-sh/python-build-standalone/releases/download/20261123/cpython-3.13.18%2B20261123-x86_64-apple-darwin-install_only_stripped.tar.gz"
+        sha256 "204e7d25132cd8e511c938d74dd6393a911d557a822289019302496befa2c4bd"
       end
     end
   end
