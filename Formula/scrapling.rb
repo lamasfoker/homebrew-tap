@@ -16,12 +16,12 @@ class Scrapling < Formula
   resource "python" do
     on_macos do
       on_arm do
-        url "https://github.com/astral-sh/python-build-standalone/releases/download/20261123/cpython-3.13.18%2B20261123-aarch64-apple-darwin-install_only_stripped.tar.gz"
-        sha256 "1ee404a045f3de0e4ed59476fc9ec8c24ddece1e2a4c549a192a04b04b03b8c1"
+        url "https://github.com/astral-sh/python-build-standalone/releases/download/20261124/cpython-3.13.18%2B20261124-aarch64-apple-darwin-install_only_stripped.tar.gz"
+        sha256 "296f0903cccda15a5c9d3d8393cd2204718aeffd9b095a00f812d75c7b1c0967"
       end
       on_intel do
-        url "https://github.com/astral-sh/python-build-standalone/releases/download/20261123/cpython-3.13.18%2B20261123-x86_64-apple-darwin-install_only_stripped.tar.gz"
-        sha256 "204e7d25132cd8e511c938d74dd6393a911d557a822289019302496befa2c4bd"
+        url "https://github.com/astral-sh/python-build-standalone/releases/download/20261124/cpython-3.13.18%2B20261124-x86_64-apple-darwin-install_only_stripped.tar.gz"
+        sha256 "bb16e167ec9e38368118ce3e43ba2c7852fea2cdba16e1852555a8997747f78a"
       end
     end
   end
@@ -29,12 +29,12 @@ class Scrapling < Formula
   resource "uv" do
     on_macos do
       on_arm do
-        url "https://github.com/astral-sh/uv/releases/download/0.13.9/uv-aarch64-apple-darwin.tar.gz"
-        sha256 "5aeca67f2283f75235de40d0bd9c0a5bbc5fce23b6d48b3bf9fa1b2db08382ca"
+        url "https://github.com/astral-sh/uv/releases/download/0.13.10/uv-aarch64-apple-darwin.tar.gz"
+        sha256 "e419bf07533bdbf48795fc793601c834dd79db57a8c49ce8e25cfe3a8639958d"
       end
       on_intel do
-        url "https://github.com/astral-sh/uv/releases/download/0.13.9/uv-x86_64-apple-darwin.tar.gz"
-        sha256 "617a3211261b0fc739562f0071aa34e9739797c510208ede8e2977c30903d041"
+        url "https://github.com/astral-sh/uv/releases/download/0.13.10/uv-x86_64-apple-darwin.tar.gz"
+        sha256 "153e03197588204c04fc4c81cc4bafbfa4280222a385e4ee36a87aeec0ae63b4"
       end
     end
   end
